@@ -11,31 +11,7 @@ public class Especialista {
         this.anosExperiencia = anosExperiencia;
     }
 
-    public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getAreaAtuacao() {
-		return areaAtuacao;
-	}
-
-	public void setAreaAtuacao(String areaAtuacao) {
-		this.areaAtuacao = areaAtuacao;
-	}
-
-	public int getAnosExperiencia() {
-		return anosExperiencia;
-	}
-
-	public void setAnosExperiencia(int anosExperiencia) {
-		this.anosExperiencia = anosExperiencia;
-	}
-
-	public void avaliarEmpresa(Empresa empresa) {
+    public void avaliarEmpresa(Empresa empresa) {
         System.out.println("Especialista " + nome + " está avaliando a empresa " + empresa.getNome());
         empresa.avaliarPoliticasAntirracistas();
     }
