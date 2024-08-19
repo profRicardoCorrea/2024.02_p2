@@ -8,7 +8,7 @@ import exceptions.InvalidEmpresaTypeException;
 import servicos.EmpresaService;
 
 public class Main {
-    private static EmpresaService empresaService = new EmpresaService();
+    private static EmpresaService empresaService = new EmpresaService(null);
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {

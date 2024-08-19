@@ -1,6 +1,6 @@
 package entidades;
 
-class PoliticaAntirracista {
+public class PoliticaAntirracista {
     private String nome;
     private String descricao;
     private int anoImplementacao;

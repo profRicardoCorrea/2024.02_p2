@@ -11,11 +11,17 @@ import entidades.enums.TipoEmpresa;
 import exceptions.EmpresaNotFoundException;
 import exceptions.InvalidAnoFundacaoException;
 import exceptions.InvalidEmpresaTypeException;
-import repositorios.EmpresaRepository;
+import insterfaces.EmpresaRepositoryInterface;
+import insterfaces.EmpresaServiceInterface; 
 
-public class EmpresaService {
-    private EmpresaRepository empresaRepository = new EmpresaRepository();
+public class EmpresaService implements EmpresaServiceInterface {
+    private EmpresaRepositoryInterface empresaRepository;
 
+    public EmpresaService(EmpresaRepositoryInterface empresaRepository) {
+        this.empresaRepository = empresaRepository;
+    }
+
+    @Override
     public void adicionarEmpresa(String nome, String endereco, int anoFundacao, TipoEmpresa tipo) throws InvalidAnoFundacaoException, InvalidEmpresaTypeException {
         if (!validarAnoFundacao(anoFundacao)) {
             throw new InvalidAnoFundacaoException("Ano de fundação inválido! Deve ser entre 1900 e 2024.");
@@ -43,6 +49,7 @@ public class EmpresaService {
         }
     }
 
+    @Override
     public void listarEmpresas() {
         ArrayList<Empresa> empresas = empresaRepository.listarEmpresas();
         if (empresas.isEmpty()) {
@@ -55,6 +62,7 @@ public class EmpresaService {
         }
     }
 
+    @Override
     public void avaliarEmpresa(int index) throws EmpresaNotFoundException {
         Empresa empresa = empresaRepository.buscarEmpresaPorIndice(index - 1);
         if (empresa != null) {
@@ -65,6 +73,7 @@ public class EmpresaService {
         }
     }
 
+    @Override
     public boolean validarAnoFundacao(int ano) {
         return ano > 1900 && ano <= 2024;
     }
