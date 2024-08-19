@@ -6,6 +6,7 @@ import entidades.EmpresaFinanceira;
 import entidades.EmpresaTecnologia;
 import entidades.EmpresaVarejo;
 import entidades.Especialista;
+import entidades.enums.TipoEmpresa;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         int opcao;
+        TipoEmpresa tipo=TipoEmpresa.FINANCEIRA;
         do {
             System.out.println("\nMenu:");
             System.out.println("1. Adicionar Empresa");

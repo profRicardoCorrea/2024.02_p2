@@ -3,6 +3,8 @@ package entidades;
 import entidades.enums.TipoEmpresa;
 
 public class EmpresaFinanceira extends Empresa {
+	private TipoEmpresa tipoEmpresa=="Financeiro"
+			tipoEmpresa==TipoEmpresa.
     public EmpresaFinanceira(String nome, String endereco, int anoFundacao) {
         super(nome, endereco, anoFundacao, TipoEmpresa.FINANCEIRA);
     }
