@@ -8,27 +8,38 @@ import entidades.EmpresaTecnologia;
 import entidades.EmpresaVarejo;
 import entidades.Especialista;
 import entidades.enums.TipoEmpresa;
+import exceptions.EmpresaNotFoundException;
+import exceptions.InvalidAnoFundacaoException;
+import exceptions.InvalidEmpresaTypeException;
 import repositorios.EmpresaRepository;
 
 public class EmpresaService {
     private EmpresaRepository empresaRepository = new EmpresaRepository();
 
-    public void adicionarEmpresa(String nome, String endereco, int anoFundacao, TipoEmpresa tipo) {
-        Empresa empresa = null;
-        switch (tipo) {
-            case TECNOLOGIA:
-                empresa = new EmpresaTecnologia(nome, endereco, anoFundacao);
-                break;
-            case VAREJO:
-                empresa = new EmpresaVarejo(nome, endereco, anoFundacao);
-                break;
-            case FINANCEIRA:
-                empresa = new EmpresaFinanceira(nome, endereco, anoFundacao);
-                break;
+    public void adicionarEmpresa(String nome, String endereco, int anoFundacao, TipoEmpresa tipo) throws InvalidAnoFundacaoException, InvalidEmpresaTypeException {
+        if (!validarAnoFundacao(anoFundacao)) {
+            throw new InvalidAnoFundacaoException("Ano de fundação inválido! Deve ser entre 1900 e 2024.");
         }
+
+        Empresa empresa = criarEmpresa(nome, endereco, anoFundacao, tipo);
         if (empresa != null) {
             empresaRepository.adicionarEmpresa(empresa);
             System.out.println("Empresa adicionada com sucesso!");
+        } else {
+            throw new InvalidEmpresaTypeException("Tipo de empresa inválido!");
+        }
+    }
+
+    private Empresa criarEmpresa(String nome, String endereco, int anoFundacao, TipoEmpresa tipo) {
+        switch (tipo) {
+            case TECNOLOGIA:
+                return new EmpresaTecnologia(nome, endereco, anoFundacao);
+            case VAREJO:
+                return new EmpresaVarejo(nome, endereco, anoFundacao);
+            case FINANCEIRA:
+                return new EmpresaFinanceira(nome, endereco, anoFundacao);
+            default:
+                return null;
         }
     }
 
@@ -44,13 +55,13 @@ public class EmpresaService {
         }
     }
 
-    public void avaliarEmpresa(int index) {
+    public void avaliarEmpresa(int index) throws EmpresaNotFoundException {
         Empresa empresa = empresaRepository.buscarEmpresaPorIndice(index - 1);
         if (empresa != null) {
             Especialista especialista = new Especialista("João", "Diversidade e Inclusão", 10);
             especialista.avaliarEmpresa(empresa);
         } else {
-            System.out.println("Empresa inválida!");
+            throw new EmpresaNotFoundException("Empresa não encontrada para o índice fornecido.");
         }
     }
 
@@ -58,4 +69,3 @@ public class EmpresaService {
         return ano > 1900 && ano <= 2024;
     }
 }
-

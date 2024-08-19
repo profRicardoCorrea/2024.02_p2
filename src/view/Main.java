@@ -1,17 +1,14 @@
 package view;
 import java.util.Scanner;
 
-import entidades.Empresa;
-import entidades.EmpresaFinanceira;
-import entidades.EmpresaTecnologia;
-import entidades.EmpresaVarejo;
-import entidades.Especialista;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+import entidades.enums.TipoEmpresa;
+import exceptions.EmpresaNotFoundException;
+import exceptions.InvalidAnoFundacaoException;
+import exceptions.InvalidEmpresaTypeException;
+import servicos.EmpresaService;
 
 public class Main {
-    private static ArrayList<Empresa> empresas = new ArrayList<>();
+    private static EmpresaService empresaService = new EmpresaService();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -31,7 +28,7 @@ public class Main {
                     adicionarEmpresa();
                     break;
                 case 2:
-                    listarEmpresas();
+                    empresaService.listarEmpresas();
                     break;
                 case 3:
                     avaliarEmpresa();
@@ -46,66 +43,53 @@ public class Main {
     }
 
     private static void adicionarEmpresa() {
-        System.out.print("Nome da Empresa: ");
-        String nome = scanner.nextLine();
-        System.out.print("Endereço: ");
-        String endereco = scanner.nextLine();
-        System.out.print("Ano de Fundação: ");
-        int anoFundacao = scanner.nextInt();
-        scanner.nextLine();  // Consumir nova linha
+        try {
+            System.out.print("Nome da Empresa: ");
+            String nome = scanner.nextLine();
+            System.out.print("Endereço: ");
+            String endereco = scanner.nextLine();
+            System.out.print("Ano de Fundação: ");
+            int anoFundacao = scanner.nextInt();
+            scanner.nextLine();  // Consumir nova linha
 
-        System.out.println("Tipo de Empresa:");
-        System.out.println("1. Tecnologia");
-        System.out.println("2. Varejo");
-        System.out.println("3. Financeira");
-        int tipo = scanner.nextInt();
-        scanner.nextLine();  // Consumir nova linha
+            System.out.println("Tipo de Empresa:");
+            System.out.println("1. Tecnologia");
+            System.out.println("2. Varejo");
+            System.out.println("3. Financeira");
+            int tipoOpcao = scanner.nextInt();
+            scanner.nextLine();  // Consumir nova linha
 
-        Empresa empresa = null;
-        switch (tipo) {
-            case 1:
-                empresa = new EmpresaTecnologia(nome, endereco, anoFundacao);
-                break;
-            case 2:
-                empresa = new EmpresaVarejo(nome, endereco, anoFundacao);
-                break;
-            case 3:
-                empresa = new EmpresaFinanceira(nome, endereco, anoFundacao);
-                break;
-            default:
-                System.out.println("Tipo inválido!");
-                return;
-        }
-
-        empresas.add(empresa);
-        System.out.println("Empresa adicionada com sucesso!");
-    }
-
-    private static void listarEmpresas() {
-        if (empresas.isEmpty()) {
-            System.out.println("Nenhuma empresa cadastrada.");
-        } else {
-            for (int i = 0; i < empresas.size(); i++) {
-                Empresa e = empresas.get(i);
-                System.out.println((i + 1) + ". " + e.getNome() + " - " + e.getEndereco() + " - Fundada em: " + e.getAnoFundacao());
+            TipoEmpresa tipo = null;
+            switch (tipoOpcao) {
+                case 1:
+                    tipo = TipoEmpresa.TECNOLOGIA;
+                    break;
+                case 2:
+                    tipo = TipoEmpresa.VAREJO;
+                    break;
+                case 3:
+                    tipo = TipoEmpresa.FINANCEIRA;
+                    break;
+                default:
+                    throw new InvalidEmpresaTypeException("Tipo de empresa inválido!");
             }
+
+            empresaService.adicionarEmpresa(nome, endereco, anoFundacao, tipo);
+
+        } catch (InvalidAnoFundacaoException | InvalidEmpresaTypeException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
     private static void avaliarEmpresa() {
-        listarEmpresas();
-        if (!empresas.isEmpty()) {
+        try {
+            empresaService.listarEmpresas();
             System.out.print("Escolha uma empresa para avaliar (número): ");
             int index = scanner.nextInt();
             scanner.nextLine();  // Consumir nova linha
-
-            if (index > 0 && index <= empresas.size()) {
-                Empresa empresa = empresas.get(index - 1);
-                Especialista especialista = new Especialista("João", "Diversidade e Inclusão", 10);
-                especialista.avaliarEmpresa(empresa);
-            } else {
-                System.out.println("Empresa inválida!");
-            }
+            empresaService.avaliarEmpresa(index);
+        } catch (EmpresaNotFoundException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 }
