@@ -7,6 +7,7 @@ import entidades.EmpresaFinanceira;
 import entidades.EmpresaTecnologia;
 import entidades.EmpresaVarejo;
 import entidades.Especialista;
+import entidades.enums.EnumEmpresaException;
 import entidades.enums.TipoEmpresa;
 import exceptions.EmpresaNotFoundException;
 import exceptions.InvalidAnoFundacaoException;
@@ -26,7 +27,7 @@ public class EmpresaService {
             empresaRepository.adicionarEmpresa(empresa);
             System.out.println("Empresa adicionada com sucesso!");
         } else {
-            throw new InvalidEmpresaTypeException("Tipo de empresa inválido!");
+            throw new InvalidEmpresaTypeException(EnumEmpresaException.TipoEmpresaInvalido.toString());
         }
     }
 
