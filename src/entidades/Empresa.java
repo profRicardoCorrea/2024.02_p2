@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import entidades.enums.TipoEmpresa;
 
-public abstract class Empresa {
+public class Empresa {
     private String nome;
     private String endereco;
     private int anoFundacao;
@@ -42,6 +42,6 @@ public abstract class Empresa {
         this.politicas.add(politica);
     }
 
-    public abstract void avaliarPoliticasAntirracistas();
-    public abstract double calcularImpactoSocial();
+    //public abstract void avaliarPoliticasAntirracistas();
+    //public abstract double calcularImpactoSocial();
 }
