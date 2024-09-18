@@ -17,6 +17,9 @@ public class Empresa {
         this.tipo = tipo;
         this.politicas = new ArrayList<>();
     }
+    public Empresa(String nome) {
+        this.nome = nome;
+        }
 
     public String getNome() {
         return nome;

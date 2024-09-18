@@ -20,7 +20,7 @@ public class PilhaRepository<T> {
         if (!stackList.isEmpty()) {
             return stackList.remove(stackList.size() - 1);
         } else {
-            throw new RuntimeException("A pilha está vazia.");
+            return null;
         }
     }
 
@@ -34,7 +34,7 @@ public class PilhaRepository<T> {
         if (!stackList.isEmpty()) {
             return stackList.get(stackList.size() - 1);
         } else {
-            throw new RuntimeException("A pilha está vazia.");
+            return null;
         }
     }
 
