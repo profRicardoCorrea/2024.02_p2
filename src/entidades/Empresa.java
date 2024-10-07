@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import entidades.enums.TipoEmpresa;
 
-public abstract class Empresa {
+public class Empresa extends EntidadeBasica{
     private String nome;
     private String endereco;
     private int anoFundacao;
@@ -17,6 +17,10 @@ public abstract class Empresa {
         this.tipo = tipo;
         this.politicas = new ArrayList<>();
     }
+    public Empresa() {
+         
+    }
+    
 
     public String getNome() {
         return nome;
@@ -38,10 +42,25 @@ public abstract class Empresa {
         return politicas;
     }
 
-    public void adicionarPolitica(PoliticaAntirracista politica) {
+    public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	public void setAnoFundacao(int anoFundacao) {
+		this.anoFundacao = anoFundacao;
+	}
+	public void setTipo(TipoEmpresa tipo) {
+		this.tipo = tipo;
+	}
+	public void setPoliticas(ArrayList<PoliticaAntirracista> politicas) {
+		this.politicas = politicas;
+	}
+	public void adicionarPolitica(PoliticaAntirracista politica) {
         this.politicas.add(politica);
     }
 
-    public abstract void avaliarPoliticasAntirracistas();
-    public abstract double calcularImpactoSocial();
+    
+    
 }
