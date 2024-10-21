@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import entidades.PoliticaAntirracista;
 
 public interface IPoliticaRepository{
-    void adicionarPolitica(PoliticaAntirracista politica);
-    ArrayList<PoliticaAntirracista> listarPoliticas();
-    PoliticaAntirracista buscarPoliticaPorNome(String nome);
+    void salvar(PoliticaAntirracista politica);
+    ArrayList<PoliticaAntirracista> listarTodas();
+    PoliticaAntirracista buscarPorNome(PoliticaAntirracista politica);
+    void remover(PoliticaAntirracista politica);
+    
 }
 

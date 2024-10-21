@@ -3,7 +3,10 @@ package entidades.enums;
  
 
 public enum TipoEmpresa {
-    TECNOLOGIA("TECNOLOGIA"), VAREJO("VAREJO"), FINANCEIRA("FINANCEIRA");
+    TECNOLOGIA("TECNOLOGIA"), 
+    VAREJO("VAREJO"), 
+    FINANCEIRA("FINANCEIRA"),
+    ENSINO("ENSINO SUPERIOR");
 	private String descricao;
 
 	TipoEmpresa(String descricao) {
