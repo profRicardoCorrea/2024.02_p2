@@ -11,3 +11,7 @@ CREATE TABLE politicas_empresa (
     PRIMARY KEY (nome_empresa, nome_politica),
     FOREIGN KEY (nome_empresa) REFERENCES empresas(nome)
 );
+
+CREATE TABLE politicas_antirracistas (
+    
+);

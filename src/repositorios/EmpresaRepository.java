@@ -139,7 +139,8 @@ public class EmpresaRepository implements IEmpresaRepository {
         String sql = "SELECT * FROM empresas WHERE tipo = ?";
         ArrayList<Empresa> empresas = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            // Aqui você pode definir um tipo específico, se necessário, como um parâmetro
+        	stmt.setString(1, empresa.getTi());
+        	// Aqui você pode definir um tipo específico, se necessário, como um parâmetro
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Empresa empresa = new Empresa(
@@ -168,7 +169,7 @@ public class EmpresaRepository implements IEmpresaRepository {
                         rs.getString("nome"),
                         rs.getString("endereco"),
                         rs.getInt("ano_fundacao"),
-                        TipoEmpresa.valueOf(rs.getString("tipo")));
+                        TipoEmpresa.getEnum(rs.getString("tipo")));
                 empresa.setPoliticas(listarPoliticas(rs.getString("nome")));
                 empresas.add(empresa);
             }
@@ -178,7 +179,7 @@ public class EmpresaRepository implements IEmpresaRepository {
 
     @Override
     public void excluir(Empresa empresa) {
-        String sql = "DELETE FROM empresas WHERE nome = ?";
+        String sql = "DELETE FROM empresas  ";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, empresa.getNome());
             stmt.executeUpdate();

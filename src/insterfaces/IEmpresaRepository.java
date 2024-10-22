@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entidades.Empresa;
+import entidades.enums.TipoEmpresa;
 
 public interface IEmpresaRepository{
      
@@ -12,6 +13,6 @@ public interface IEmpresaRepository{
 	Empresa listarPorCodigo(int condigo) throws SQLException;
 	ArrayList<Empresa> persquisarPorNome(String nome);
 	ArrayList<Empresa> persquisarTipo();
-	ArrayList<Empresa> listarTodos() throws SQLException;
+	ArrayList<Empresa> listarTodos(TipoEmpresa tipo) throws SQLException;
 	void excluir(Empresa Empresa);
 }

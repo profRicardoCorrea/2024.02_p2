@@ -13,7 +13,7 @@ public class MainRepositorioEmpresaPolitica {
 	    public static void main(String[] args) throws SQLException {
 	       
 	        // Criar uma nova empresa com políticas antirracistas
-	        Empresa novaEmpresa = new Empresa("TechCorp", "Rua Principal, 123", 2000, TipoEmpresa.TECNOLOGIA);
+	        Empresa novaEmpresa = new Empresa("TechCorp 1", "Rua Principal, 123", 2000, TipoEmpresa.TECNOLOGIA);
 	        PoliticaAntirracista politica = new PoliticaAntirracista("Inclusão racial", "Política de inclusão", 2015, 90);
 	        novaEmpresa.adicionarPolitica(politica);
 	        new EmpresaRepository().salvar(novaEmpresa);
