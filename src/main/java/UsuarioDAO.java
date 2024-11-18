@@ -1,6 +1,8 @@
 
 
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -34,7 +36,10 @@ public class UsuarioDAO {
      * Método para buscar um usuário pelo ID.
      */
     public Usuario buscarPorId(Long id) {
-        try (Session session = sessionFactory.openSession()) {
+    	Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
             return session.get(Usuario.class, id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,8 +51,9 @@ public class UsuarioDAO {
      * Método para atualizar um usuário existente.
      */
     public void atualizar(Usuario usuario) {
+    	Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
+        try { 
             transaction = session.beginTransaction();
             session.update(usuario);
             transaction.commit();
@@ -61,8 +67,9 @@ public class UsuarioDAO {
      * Método para deletar um usuário pelo ID.
      */
     public void deletarPorId(Long id) {
+    	Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
+        try {
             transaction = session.beginTransaction();
             Usuario usuario = session.get(Usuario.class, id);
             if (usuario != null) {
@@ -79,7 +86,10 @@ public class UsuarioDAO {
      * Método para listar todos os usuários.
      */
     public List<Usuario> listarTodos() {
-        try (Session session = sessionFactory.openSession()) {
+    	Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
             return session.createQuery("FROM Usuario", Usuario.class).list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +101,10 @@ public class UsuarioDAO {
      * Método para buscar usuários por nome.
      */
     public List<Usuario> buscarPorNome(String nome) {
-        try (Session session = sessionFactory.openSession()) {
+    	Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
             return session.createQuery("FROM Usuario WHERE nome = :nome", Usuario.class)
                     .setParameter("nome", nome)
                     .list();
