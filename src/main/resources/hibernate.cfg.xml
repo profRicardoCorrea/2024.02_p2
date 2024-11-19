@@ -13,5 +13,6 @@
 
         <!-- Mapeamento da entidade Usuario -->
         <mapping class="Usuario"/>
+        <mapping class="Pessoa"/>
     </session-factory>
 </hibernate-configuration>
